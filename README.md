@@ -29,7 +29,7 @@ Halaman ini menampilkan urutan forum diskusi berbentuk card yang berada di rangk
 Halaman ini menampilkan buku-buku yang ada pada aplikasi juga dapat melihat informasi detail mengenai buku tersebut, halaman ini juga memiliki fitur menambahkan buku.
 - Communities (oleh Darryl Nawawi )   
 
- Halaman ini interfacenya seperti feed, menampilkan event - event yang akan ada, yang mana penulis buku dapat menambahkan acara communities.
+Halaman ini interfacenya seperti feed, menampilkan event - event yang akan ada, yang mana penulis buku dapat menambahkan acara communities.
 
 ### Modul yang bukan modul buku, tetapi harus ada:
 - Navbar 
@@ -55,8 +55,7 @@ Dapat membuka forum diskusi, dapat menambahkan buku di dataset dapat menambahkan
 
 Tidak bisa menambahkan forum diskusi baru,  tidak bisa menambahkan buku di dataset, dan tidak bisa menambahkan event buku
 
-
-###
+### Alur pengintegrasian dengan web service untuk terhubung dengan aplikasi web
 1. Memodifikasi struktur proyek Flutter agar setiap modul berdiri sendiri.
 2. Melakukan transformasi model dari setiap modul dalam proyek Django dengan menggunakan QuickType.
 3. Membuat berkas baru .dart pada aplikasi Flutter yang akan menyimpan data hasil transformasi dari QuickType untuk aplikasi Flutter.
