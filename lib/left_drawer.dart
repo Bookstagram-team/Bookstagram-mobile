@@ -1,7 +1,7 @@
-import 'package:bookstagram/screens/form.dart';
-import 'package:bookstagram/widgets/event.dart';
+import 'package:bookstagram/form.dart';
+import 'package:bookstagram/communities/widgets/event.dart';
 import 'package:flutter/material.dart';
-import 'package:bookstagram/widgets/menu.dart';
+import 'package:bookstagram/menu.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
