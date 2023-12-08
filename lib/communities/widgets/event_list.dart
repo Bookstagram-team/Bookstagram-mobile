@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookstagram/models/bookstagram.dart';
+import 'package:bookstagram/bookstagram.dart';
 
 class ProductListPage extends StatelessWidget {
   final List<Event> event;

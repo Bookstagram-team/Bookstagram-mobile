@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bookstagram/widgets/left_drawer.dart';
-import 'package:bookstagram/widgets/event_card.dart'; 
-import 'package:bookstagram/models/event_item.dart';
-import 'package:bookstagram/screens/event_form.dart'; 
+import 'package:bookstagram/left_drawer.dart'; 
+import 'package:bookstagram/communities/widgets/event_card.dart';
+import 'package:bookstagram/communities/models/event_item.dart'; 
+import 'package:bookstagram/communities/screens/event_form.dart'; 
 
 class MyEventPage extends StatefulWidget {
   MyEventPage({Key? key}) : super(key: key);
@@ -12,9 +12,9 @@ class MyEventPage extends StatefulWidget {
 }
 
 class _MyEventPageState extends State<MyEventPage> {
-  List<EventItem> events = [];
+  List<Product> events = [];
 
-  void addEvent(EventItem event) {
+  void addEvent(Product event) {
     setState(() {
       events.add(event);
     });
@@ -35,52 +35,51 @@ class _MyEventPageState extends State<MyEventPage> {
           ),
         ),
         child: const Icon(Icons.add),
-        backgroundColor: Colors.grey, // Debug color
+        backgroundColor: Colors.grey, // Adjust color as needed
       ),
     );
   }
 
   Widget buildEventGrid() {
-  return SingleChildScrollView(
-    child: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(
-        children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
-            child: Text(
-              'Upcoming Events',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+              child: Text(
+                'Upcoming Events',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          GridView.count(
-            primary: false,
-            padding: const EdgeInsets.all(20),
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            children: events.map((event) {
-              return EventCard(
-                event: event,
-                onDelete: () => deleteEvent(event),
-              );
-            }).toList(),
-          ),
-        ],
+            GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(20),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              children: events.map((event) {
+                return EventCard(
+                  event: event,
+                  onDelete: () => deleteEvent(event),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-void deleteEvent(EventItem event) {
-  setState(() {
-    events.remove(event);
-  });
-}
-
+  void deleteEvent(Product event) {
+    setState(() {
+      events.remove(event);
+    });
+  }
 
   Widget buildEmptyState() {
     return Center(

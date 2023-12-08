@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:bookstagram/models/event_item.dart';
+import 'package:bookstagram/communities/models/event_item.dart'; // Import Product class
 
 class EventCard extends StatelessWidget {
-  final EventItem event;
+  final Product event;
   final VoidCallback onDelete;
 
   EventCard({required this.event, required this.onDelete});
@@ -17,7 +17,7 @@ class EventCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Image.network(
-            event.eventPhoto,
+            event.fields.foto,
             height: 200,
             fit: BoxFit.cover,
             errorBuilder: (context, error, stackTrace) {
@@ -34,16 +34,19 @@ class EventCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(event.title, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                Text(event.fields.namaEvent, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                 Row(
                   children: <Widget>[
-                    Icon(event.icon, size: 24),
+                    // Icon placeholder if you have an icon
                     SizedBox(width: 10),
-                    Text(event.eventDate, style: TextStyle(fontSize: 16)),
+                    Text(
+                      "${event.fields.tanggalPelaksanaan.year.toString()}-${event.fields.tanggalPelaksanaan.month.toString().padLeft(2, '0')}-${event.fields.tanggalPelaksanaan.day.toString().padLeft(2, '0')}", 
+                      style: TextStyle(fontSize: 16)
+                    ),
                   ],
                 ),
                 SizedBox(height: 5),
-                Text('Price: ${event.eventPrice}', style: TextStyle(fontSize: 18)),
+                Text('Price: ${event.fields.harga}', style: TextStyle(fontSize: 18)),
               ],
             ),
           ),
