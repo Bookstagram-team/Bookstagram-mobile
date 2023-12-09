@@ -1,3 +1,4 @@
+import 'package:bookstagram/communities/screens/booklist.dart';
 import 'package:bookstagram/form.dart';
 import 'package:bookstagram/communities/widgets/event.dart';
 import 'package:flutter/material.dart';
@@ -78,10 +79,14 @@ class LeftDrawer extends StatelessWidget {
                 leading: const Icon(Icons.subdirectory_arrow_right),
                 title: const Text('Booklist'),
                 onTap: () {
-                  // Aksi ketika pilihan 2 diklik
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookListPage(), // Navigate to BookListPage
+                    ),
+                  );
                 },
               ),
-              // Tambahkan lebih banyak ListTile di sini untuk lebih banyak pilihan
             ],
           ),
         ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookstagram/communities/models/event_item.dart'; // Import Product class
+import 'package:bookstagram/communities/models/event_item.dart';
 
 class EventCard extends StatelessWidget {
   final Product event;
@@ -55,11 +55,10 @@ class EventCard extends StatelessWidget {
             children: <Widget>[
               TextButton(
                 onPressed: onDelete,
-                style: TextButton.styleFrom(
-                  primary: Colors.red, // This is the text color
-                ),
+                style: TextButton.styleFrom(primary: Colors.red),
                 child: Text('Delete'),
               ),
+              
             ],
           ),
         ],

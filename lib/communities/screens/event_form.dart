@@ -1,10 +1,14 @@
-import 'package:bookstagram/communities/models/event_item.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:bookstagram/communities/models/event_item.dart';  // Ensure this import is correct
 
 class AddEventPage extends StatefulWidget {
   final Function(Product) onSubmit;
 
   AddEventPage({Key? key, required this.onSubmit}) : super(key: key);
+
   @override
   _AddEventPageState createState() => _AddEventPageState();
 }
@@ -56,7 +60,12 @@ class _AddEventPageState extends State<AddEventPage> {
               TextFormField(
                 controller: _eventNameController,
                 decoration: InputDecoration(labelText: 'Event Name'),
-                // [Other properties like validator]
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter event name';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 controller: _dateController,
@@ -68,18 +77,28 @@ class _AddEventPageState extends State<AddEventPage> {
                   FocusScope.of(context).requestFocus(new FocusNode()); 
                   _pickDate(context);
                 },
-                readOnly: true, // To prevent manual editing
+                readOnly: true,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please pick a date';
+                  }
+                  return null;
+                },
               ),
               TextFormField(
                 controller: _eventPhotoController,
                 decoration: InputDecoration(labelText: 'Event Photo URL'),
-                // [Other properties like validator]
               ),
               TextFormField(
                 controller: _eventPriceController,
                 decoration: InputDecoration(labelText: 'Event Price'),
                 keyboardType: TextInputType.number,
-                // [Other properties like validator]
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter event price';
+                  }
+                  return null;
+                },
               ),
               ElevatedButton(
                 onPressed: _submitForm,
@@ -92,11 +111,24 @@ class _AddEventPageState extends State<AddEventPage> {
     );
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
+  void _submitForm() async {
+  if (_formKey.currentState!.validate()) {
+    final Map<String, dynamic> eventData = {
+      "nama_event": _eventNameController.text,
+      "tanggal_pelaksanaan": "${eventDate.toIso8601String()}",
+      "foto": _eventPhotoController.text,
+      "harga": int.tryParse(_eventPriceController.text) ?? 0,
+    };
+
+    final CookieRequest request = Provider.of<CookieRequest>(context, listen: false);
+    final response = await request.postJson(
+      "http://localhost:8000/create-flutter/",
+      jsonEncode(eventData),
+    );
+
+    if (response['status'] == 'success') {
       String modelName = 'event_model'; 
       int primaryKey = DateTime.now().millisecondsSinceEpoch; 
-
       Product newProduct = Product(
         model: modelName,
         pk: primaryKey,
@@ -109,7 +141,18 @@ class _AddEventPageState extends State<AddEventPage> {
       );
 
       widget.onSubmit(newProduct);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Event successfully added!")),
+      );
+
       Navigator.pop(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("There was an error, please try again.")),
+      );
     }
   }
+}
+
 }
