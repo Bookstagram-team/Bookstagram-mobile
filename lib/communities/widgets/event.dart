@@ -3,6 +3,8 @@ import 'package:bookstagram/left_drawer.dart';
 import 'package:bookstagram/communities/widgets/event_card.dart';
 import 'package:bookstagram/communities/models/event_item.dart'; 
 import 'package:bookstagram/communities/screens/event_form.dart'; 
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class MyEventPage extends StatefulWidget {
   MyEventPage({Key? key}) : super(key: key);
@@ -11,12 +13,36 @@ class MyEventPage extends StatefulWidget {
   _MyEventPageState createState() => _MyEventPageState();
 }
 
+Future<List<Product>> fetchEvents() async {
+  var url = Uri.parse('http://localhost:8000/communities/show-json/');
+  var response = await http.get(url);
+
+  if (response.statusCode == 200) {
+    List<dynamic> data = jsonDecode(response.body);
+    return data.map((json) => Product.fromJson(json)).toList();
+  } else {
+    throw Exception('Failed to load events');
+  }
+}
+
 class _MyEventPageState extends State<MyEventPage> {
   List<Product> events = [];
 
   void addEvent(Product event) {
-    setState(() {
-      events.add(event);
+    fetchEvents().then((loadedEvents) {
+      setState(() {
+        events = loadedEvents;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchEvents().then((loadedEvents) {
+      setState(() {
+        events = loadedEvents;
+      });
     });
   }
 
@@ -35,7 +61,7 @@ class _MyEventPageState extends State<MyEventPage> {
           ),
         ),
         child: const Icon(Icons.add),
-        backgroundColor: Colors.grey, // Adjust color as needed
+        backgroundColor: Colors.grey, 
       ),
     );
   }
@@ -76,8 +102,10 @@ class _MyEventPageState extends State<MyEventPage> {
   }
 
   void deleteEvent(Product event) {
-    setState(() {
-      events.remove(event);
+    fetchEvents().then((loadedEvents) {
+      setState(() {
+        events.remove(event);
+      });
     });
   }
 

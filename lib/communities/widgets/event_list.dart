@@ -13,12 +13,11 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
 Future<List<Product>> fetchProduct() async {
-    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
     var url = Uri.parse(
         'http://localhost:8000/communities/show-json/');
     var response = await http.get(
         url,
-        headers: {"Content-Type": "application/show-json"}
+        headers: {"Content-Type": "application/json"}
     );
 
     // melakukan decode response menjadi bentuk json
@@ -90,10 +89,9 @@ Widget build(BuildContext context) {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Text("Price: \$${product.fields.harga.toString()}"),
-                              const SizedBox(height: 10),
                               Text("Date: ${product.fields.tanggalPelaksanaan}"),
-                              // Add more fields as needed
+                              const SizedBox(height: 10),
+                              Text("Price: \$${product.fields.harga.toString()}"),
                             ],
                           ),
                         );
