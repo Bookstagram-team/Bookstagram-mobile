@@ -1,4 +1,5 @@
 import 'package:bookstagram/form.dart';
+import 'package:bookstagram/mainpage/homepage.dart';
 import 'package:flutter/material.dart';
 
 class ShopItem {
@@ -25,10 +26,13 @@ class ShopCard extends StatelessWidget {
             ..hideCurrentSnackBar()
             ..showSnackBar(SnackBar(
                 content: Text("Kamu telah menekan tombol ${item.name}!")));
-            if (item.name == "Tambah Produk") {
-              Navigator.push(context,
+          if (item.name == "Tambah Produk") {
+            Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ShopFormPage()));
-            }
+          } else if (item.name == "Lihat Produk") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const LandingPage()));
+          }
         },
         child: Container(
           // Container untuk menyimpan Icon dan Text
