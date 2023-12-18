@@ -1,13 +1,18 @@
+import 'package:bookstagram/communities/screens/booklist.dart';
 import 'package:bookstagram/form.dart';
 import 'package:bookstagram/communities/widgets/event.dart';
+import 'package:bookstagram/login.dart';
 import 'package:flutter/material.dart';
 import 'package:bookstagram/menu.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Drawer(
       child: ListView(
         children: [
@@ -78,11 +83,38 @@ class LeftDrawer extends StatelessWidget {
                 leading: const Icon(Icons.subdirectory_arrow_right),
                 title: const Text('Booklist'),
                 onTap: () {
-                  // Aksi ketika pilihan 2 diklik
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BookListPage(), // Navigate to BookListPage
+                    ),
+                  );
                 },
               ),
-              // Tambahkan lebih banyak ListTile di sini untuk lebih banyak pilihan
             ],
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Logout'),
+            onTap: () async {
+              final response = await request.logout(
+              "http://localhost:8000/auth/logout/");
+              String message = response["message"];
+              if (response['status']) {
+                String uname = response["username"];
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message Sampai jumpa, $uname."),
+                ));
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text("$message"),
+                ));
+              }
+            },
           ),
         ],
       ),

@@ -1,6 +1,6 @@
-import 'package:bookstagram/widgets/shop_card.dart';
+import 'package:bookstagram/shop_card.dart';
 import 'package:flutter/material.dart';
-import 'package:bookstagram/widgets/left_drawer.dart';
+import 'package:bookstagram/left_drawer.dart';
 
 class MyHomePage extends StatelessWidget {
     MyHomePage({Key? key}) : super(key: key);

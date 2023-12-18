@@ -1,4 +1,4 @@
-import 'package:bookstagram/screens/form.dart';
+import 'package:bookstagram/form.dart';
 import 'package:flutter/material.dart';
 
 class ShopItem {

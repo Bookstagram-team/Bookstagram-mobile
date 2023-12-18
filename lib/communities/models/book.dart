@@ -1,6 +1,5 @@
 class Book {
   final int pk;
-  final int urutan;
   final String isbn;
   final String judul;
   final String penulis;
@@ -13,7 +12,6 @@ class Book {
 
   Book({
     required this.pk,
-    required this.urutan,
     required this.isbn,
     required this.judul,
     required this.penulis,
@@ -28,7 +26,6 @@ class Book {
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
       pk: json['pk'],
-      urutan: json['fields']['Urutan'],
       isbn: json['fields']['ISBN'],
       judul: json['fields']['Judul'],
       penulis: json['fields']['Penulis'],
@@ -37,7 +34,7 @@ class Book {
       imageS: json['fields']['ImageS'],
       imageM: json['fields']['ImageM'],
       imageL: json['fields']['ImageL'],
-      rating: json['fields']['rating'],
+      rating: json['fields']['Rating'],
     );
   }
 
@@ -45,7 +42,6 @@ class Book {
     return {
       'pk': pk,
       'fields': {
-        'Urutan': urutan,
         'ISBN': isbn,
         'Judul': judul,
         'Penulis': penulis,
@@ -54,7 +50,7 @@ class Book {
         'ImageS': imageS,
         'ImageM': imageM,
         'ImageL': imageL,
-        'rating': rating,
+        'Rating': rating,
       }
     };
   }
