@@ -2,8 +2,8 @@ import 'package:bookstagram/communities/screens/booklist.dart';
 import 'package:bookstagram/form.dart';
 import 'package:bookstagram/communities/widgets/event.dart';
 import 'package:bookstagram/login.dart';
+import 'package:bookstagram/mainpage/homepage.dart';
 import 'package:flutter/material.dart';
-import 'package:bookstagram/menu.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -51,7 +51,7 @@ class LeftDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
+                    builder: (context) => LandingPage(),
                   ));
             },
           ),
