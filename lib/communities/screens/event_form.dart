@@ -112,47 +112,46 @@ class _AddEventPageState extends State<AddEventPage> {
   }
 
   void _submitForm() async {
-  if (_formKey.currentState!.validate()) {
-    final Map<String, dynamic> eventData = {
-      "nama_event": _eventNameController.text,
-      "tanggal_pelaksanaan": "${eventDate.toIso8601String()}",
-      "foto": _eventPhotoController.text,
-      "harga": int.tryParse(_eventPriceController.text) ?? 0,
-    };
+    if (_formKey.currentState!.validate()) {
+      final Map<String, dynamic> eventData = {
+        "nama_event": _eventNameController.text,
+        "tanggal_pelaksanaan": "${eventDate.toIso8601String()}",
+        "foto": _eventPhotoController.text,
+        "harga": int.tryParse(_eventPriceController.text) ?? 0,
+      };
 
-    final CookieRequest request = Provider.of<CookieRequest>(context, listen: false);
-    final response = await request.postJson(
-      "http://localhost:8000/create-flutter/",
-      jsonEncode(eventData),
-    );
-
-    if (response['status'] == 'success') {
-      String modelName = 'event_model'; 
-      int primaryKey = DateTime.now().millisecondsSinceEpoch; 
-      Product newProduct = Product(
-        model: modelName,
-        pk: primaryKey,
-        fields: Fields(
-          namaEvent: _eventNameController.text,
-          tanggalPelaksanaan: eventDate, 
-          foto: _eventPhotoController.text,
-          harga: int.tryParse(_eventPriceController.text) ?? 0,
-        ),
+      final CookieRequest request = Provider.of<CookieRequest>(context, listen: false);
+      final response = await request.postJson(
+        "http://localhost:8000/create-flutter/",
+        jsonEncode(eventData),
       );
 
-      widget.onSubmit(newProduct);
+      if (response['status'] == 'success') {
+        String modelName = 'event_model'; 
+        int primaryKey = DateTime.now().millisecondsSinceEpoch; 
+        Product newProduct = Product(
+          model: modelName,
+          pk: primaryKey,
+          fields: Fields(
+            namaEvent: _eventNameController.text,
+            tanggalPelaksanaan: eventDate, 
+            foto: _eventPhotoController.text,
+            harga: int.tryParse(_eventPriceController.text) ?? 0,
+          ),
+        );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Event successfully added!")),
-      );
+        widget.onSubmit(newProduct);
 
-      Navigator.pop(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("There was an error, please try again.")),
-      );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Event successfully added!")),
+        );
+
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("There was an error, please try again.")),
+        );
+      }
     }
   }
-}
-
 }
