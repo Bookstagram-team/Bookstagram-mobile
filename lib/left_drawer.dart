@@ -1,4 +1,5 @@
 import 'package:bookstagram/communities/screens/booklist.dart';
+import 'package:bookstagram/communities/screens/discussion.dart';
 import 'package:bookstagram/form.dart';
 import 'package:bookstagram/communities/widgets/event.dart';
 import 'package:bookstagram/login.dart';
@@ -6,6 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:bookstagram/menu.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+
+import 'package:bookstagram/communities/models/product.dart';
+import 'package:bookstagram/left_drawer.dart';
+
+import 'package:bookstagram/left_drawer.dart';
+
+
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -33,26 +41,26 @@ class LeftDrawer extends StatelessWidget {
                 ),
                 Padding(padding: EdgeInsets.all(10)),
                 Text("Catat keperluan literasimu disini",
-                    textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                      ),
-                    ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                  ),
+                ),
               ],
             ),
           ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
-            // Bagian redirection ke MyHomePage
             onTap: () {
               Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MyHomePage(),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MyHomePage(),
+                ),
+              );
             },
           ),
           ListTile(
@@ -65,18 +73,19 @@ class LeftDrawer extends StatelessWidget {
             },
           ),
           ExpansionTile(
-            leading: const Icon(Icons.more_vert), // Ganti dengan icon yang diinginkan
-            title: const Text('Event'), // Judul dropdown
+            leading: const Icon(Icons.more_vert),
+            title: const Text('Event'),
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.subdirectory_arrow_right),
                 title: const Text('Event List'),
                 onTap: () {
                   Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MyEventPage(),
-                      ));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MyEventPage(),
+                    ),
+                  );
                 },
               ),
               ListTile(
@@ -86,7 +95,7 @@ class LeftDrawer extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BookListPage(), // Navigate to BookListPage
+                      builder: (context) => BookListPage(),
                     ),
                   );
                 },
@@ -94,11 +103,27 @@ class LeftDrawer extends StatelessWidget {
             ],
           ),
           ListTile(
+            leading: const Icon(Icons.forum), // Add icon for Discussion
+            title: const Text('Discussion'), // Add text for Discussion
+            onTap: () {
+              // Add your navigation logic for the Discussion page here
+              // For example, Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DiscussionPage()));
+
+
+               Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiscussionPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
             leading: const Icon(Icons.logout),
             title: const Text('Logout'),
             onTap: () async {
               final response = await request.logout(
-              "http://localhost:8000/auth/logout/");
+                "http://localhost:8000/auth/logout/");
               String message = response["message"];
               if (response['status']) {
                 String uname = response["username"];

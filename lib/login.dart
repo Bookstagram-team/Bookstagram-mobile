@@ -3,6 +3,16 @@ import 'package:bookstagram/register.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:bookstagram/menu.dart';
+import 'package:bookstagram/register.dart';
+import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:bookstagram/menu.dart';
+import 'package:bookstagram/register.dart';
+import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 
 void main() {
     runApp(const LoginApp());
@@ -25,7 +35,7 @@ Widget build(BuildContext context) {
 
 class LoginPage extends StatefulWidget {
     const LoginPage({super.key});
-
+    static String usernamePass = "";
     @override
     _LoginPageState createState() => _LoginPageState();
 }
@@ -78,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (request.loggedIn) {
                                     String message = response['message'];
                                     String uname = response['username'];
+                                    LoginPage.usernamePass = response['username'];
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(builder: (context) => MyHomePage()),
