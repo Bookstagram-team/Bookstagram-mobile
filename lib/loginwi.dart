@@ -25,7 +25,7 @@ Widget build(BuildContext context) {
 
 class LoginPage extends StatefulWidget {
     const LoginPage({super.key});
-    static String usernamePass = "";
+
     @override
     _LoginPageState createState() => _LoginPageState();
 }
@@ -78,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
                                 if (request.loggedIn) {
                                     String message = response['message'];
                                     String uname = response['username'];
-                                    LoginPage.usernamePass = response['username'];
                                     Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(builder: (context) => MyHomePage()),

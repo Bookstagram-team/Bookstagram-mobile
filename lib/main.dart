@@ -1,11 +1,26 @@
 import 'package:bookstagram/login.dart';
+// import 'package:bookstagram/profile/screens/userprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+
+//   runApp(
+//     MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider(create: (context) => UserProvider()),
+//       ],
+//       child: const MyApp(),
+//     ),
+//   );
+// }
 
 class MyApp extends StatelessWidget {
     const MyApp({Key? key}) : super(key: key);
