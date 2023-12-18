@@ -6,6 +6,7 @@ import 'package:bookstagram/mainpage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:bookstagram/profile/screens/profile_screen.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -42,6 +43,18 @@ class LeftDrawer extends StatelessWidget {
                     ),
               ],
             ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.account_circle),
+            title: const Text('Profile'),
+            // Bagian redirection ke MyHomePage
+            onTap: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProfileScreen(),
+                  ));
+            },
           ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
