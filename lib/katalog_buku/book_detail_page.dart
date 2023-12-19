@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:bookstagram/communities/models/book.dart';
+import 'package:flutter/material.dart';
+import 'package:bookstagram/communities/models/book.dart';
+import 'package:bookstagram/katalog_buku/api.dart';
 
 class BookDetailPage extends StatelessWidget {
   final Book book;
@@ -36,9 +39,6 @@ class BookDetailPage extends StatelessWidget {
   }
 }
 
-// import 'package:flutter/material.dart';
-// import 'package:bookstagram/communities/models/book.dart';
-// import 'package:bookstagram/katalog_buku/api.dart';
 
 // class BookDetailPage extends StatefulWidget {
 //   final int bookId;

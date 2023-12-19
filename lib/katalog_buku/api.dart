@@ -20,7 +20,7 @@
 //     throw Exception('Failed to add book');
 //   }
 // }
-
+import 'dart:convert' as convert;
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:bookstagram/communities/models/book.dart';
@@ -49,44 +49,80 @@ Future<void> addBook(Book book) async {
   }
 }
 
-class ApiService {
-  Future<Book> fetchBookDetails(int pk) async {
-    final response = await http.get(Uri.parse('http://127.0.0.1:8000/get-book-details/$pk/'));
+// class Api {
+//   final String baseUrl = "http://localhost:8000";
+
+//   Future<List<Book>> getBooks() async {
+//     final response = await http.get(Uri.parse('$baseUrl/book/api/book/'));
+
 //     if (response.statusCode == 200) {
-//   dynamic body = jsonDecode(response.body);
-//   Map<String, dynamic> bookData = body[0]['fields'];
-
-//   // Ubah string ke integer untuk field 'pk', 'publikasi', 'rating', dan 'urutan'
-//   if (bookData['pk'] is String) {
-//     bookData['pk'] = int.parse(bookData['pk']);
+//       List jsonResponse = json.decode(response.body);
+//       return jsonResponse.map((item) => Book.fromJson(item)).toList();
+//     } else {
+//       throw Exception('Failed to load books from API');
+//     }
 //   }
-//   if (bookData['publikasi'] is String) {
-//     bookData['publikasi'] = int.parse(bookData['publikasi']);
-//   }
-//   if (bookData['rating'] is String) {
-//     bookData['rating'] = int.parse(bookData['rating']);
-//   }
-//   if (bookData['urutan'] is String) {
-//     bookData['urutan'] = int.parse(bookData['urutan']);
-//   }
-  
-//   Book book = Book.fromJson(bookData);
-//   return book;
-
-// } else {
-//   throw Exception('Failed to load book details.');
 // }
 
-if (response.statusCode == 200) {
-  dynamic body = jsonDecode(response.body);
-  Book book = Book.fromJson(body[0]);
-  return book;
-} else {
-  throw Exception('Failed to load book details.');
-}
+class Api {
+  final String baseUrl = "http://localhost:8000";
 
+  Future<List<Book>> getBooks() async {
+    final response = await http.get(Uri.parse('$baseUrl/book/api/book/'));
 
-
+    if (response.statusCode == 200) {
+      List jsonResponse = json.decode(response.body);
+      return jsonResponse.map((item) => Book.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load books from API');
+    }
   }
 }
 
+// class Api {
+//   static const String baseUrl = 'http://localhost:8000/';
+
+//   Future<List<Book>> getBooks({required String sort}) async {
+//     var url = Uri.parse(baseUrl + 'book/api/book/' + (sort == 'az' 
+//       ? 'sort_az/' 
+//       : sort == 'za' ? 'sort_za/' : ''));
+
+//     var response = await http.get(url);
+    
+//     if (response.statusCode == 200) {
+//       var jsonResponse = json.decode(response.body) as List;
+//       return jsonResponse.map((book) => Book.fromJson(book)).toList();
+//     } else {
+//       throw Exception('Failed to load books from API');
+//     }
+//   }
+// }
+
+class ApiService {
+  final String baseUrl = "http://localhost:8000/book/api/book/";
+
+  Future<Book> fetchBookDetails(int pk) async {
+    final response = await http.get(Uri.parse('$baseUrl$pk/'));
+
+    if (response.statusCode == 200) {
+      dynamic body = jsonDecode(response.body);
+      Book book = Book.fromJson(body);
+      return book;
+    } else {
+      throw Exception('Failed to load book details.');
+    }
+  }
+
+  Future<List<Book>> fetchBooks({String sort = ''}) async {
+    final response = await http.get(Uri.parse('$baseUrl?sort=$sort'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> body = jsonDecode(response.body);
+      List<Book> books = body.map((dynamic item) => Book.fromJson(item)).toList();
+      return books;
+    } else {
+      throw Exception('Failed to load books.');
+    }
+  }
+  
+}
