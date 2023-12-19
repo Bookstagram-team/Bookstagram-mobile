@@ -1,6 +1,7 @@
 import 'package:bookstagram/communities/screens/booklist.dart';
-import 'package:bookstagram/form.dart';
+import 'package:bookstagram/communities/screens/discussion.dart';
 import 'package:bookstagram/communities/widgets/event.dart';
+import 'package:bookstagram/katalog_buku/katalog_buku.dart';
 import 'package:bookstagram/login.dart';
 import 'package:bookstagram/mainpage/homepage.dart';
 import 'package:flutter/material.dart';
@@ -68,15 +69,6 @@ class LeftDrawer extends StatelessWidget {
                   ));
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.add_shopping_cart),
-            title: const Text('Tambah Produk'),
-            onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => ShopFormPage()),
-              );
-            },
-          ),
           ExpansionTile(
             leading: const Icon(Icons.more_vert), // Ganti dengan icon yang diinginkan
             title: const Text('Event'), // Judul dropdown
@@ -105,6 +97,30 @@ class LeftDrawer extends StatelessWidget {
                 },
               ),
             ],
+          ),
+          ListTile(
+            leading: const Icon(Icons.forum),
+            title: const Text('Discussion'),
+            onTap: () {
+               Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiscussionPage(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.library_books),
+            title: const Text('Katalog Buku'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => KatalogBukuPage(), // Navigate to KatalogBukuPage
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.logout),
