@@ -1,4 +1,5 @@
 import 'package:bookstagram/communities/screens/booklist.dart';
+import 'package:bookstagram/communities/screens/discussion.dart';
 import 'package:bookstagram/communities/widgets/event.dart';
 import 'package:bookstagram/katalog_buku/katalog_buku.dart';
 import 'package:bookstagram/login.dart';
@@ -96,6 +97,18 @@ class LeftDrawer extends StatelessWidget {
                 },
               ),
             ],
+          ),
+          ListTile(
+            leading: const Icon(Icons.forum),
+            title: const Text('Discussion'),
+            onTap: () {
+               Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DiscussionPage(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.library_books),
